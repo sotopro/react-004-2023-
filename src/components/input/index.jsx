@@ -11,10 +11,11 @@ const Input = ({
     onBlur,
     onChange,
     value,
-    className,
+    active,
 }) => {
+    const inputClass = `container ${active ? 'active' : ''}`
     return (
-        <div className={className}>
+        <div className={inputClass}>
             <input 
                 id={id}
                 type={type} 

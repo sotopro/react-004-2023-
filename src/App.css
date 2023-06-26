@@ -15,3 +15,14 @@ a {
 ul {
   list-style: none;
 }
+
+.inputContainer {
+  width: 100%;
+  padding: 1rem;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+}
