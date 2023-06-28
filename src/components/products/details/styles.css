@@ -1,0 +1,86 @@
+.cardDetail {
+    background-color: #ffffff;
+    border-radius: 0.3rem;
+    box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0.5rem;
+    padding: 1rem;
+    height: 500px;
+    transition: all 0.3s ease-in-out;
+}
+
+.cardDetailImageContainer {}
+.cardDetailImage {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 0.7rem;
+}
+.cardDetailContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-height: 400px;
+}
+.cardDetailName {
+    font-size: 2rem;
+    padding: 0.3rem 0;
+}
+.cardDetailCategory {
+    font-size: 1.2rem;
+    color: #5156A4;
+    font-weight: bold;
+    padding: 0.3rem 0;
+}
+.cardDetailDescription {
+    font-size: 1rem;
+    padding: 0.3rem 0;
+    min-height: 4rem;
+    text-align: center;
+}
+.cardDetailPrice {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #5156A4;
+    padding: 0.3rem 0;
+}
+.cardDetailStock {
+    font-size: 1rem;
+    padding: 0.3rem 0;
+}
+.cardDetailActions {
+    display: flex;
+    padding: 1rem 0rem;
+}
+
+.cardDetailActions button {
+    border: none;
+    background-color: #5156A4;
+    color: #ffffff;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 0.2rem;
+}
+
+.headerDetailContainer {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem;
+}
+
+.headerDetailContainer .backButton {
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    padding: 0;
+    margin: 0;
+    transition: all 0.1s ease-in-out;
+}
+
+.headerDetailContainer .backButton:hover{
+    border-bottom: 1px solid #5156A4;
+    scale: 1.02;
+}
