@@ -16,6 +16,16 @@ ul {
   list-style: none;
 }
 
+.contentContainer {
+  margin: 1rem 1.6rem;
+}
+
+.headerTitleCard {
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+}
+
 .inputContainer {
   width: 100%;
   padding: 1rem;
@@ -25,4 +35,6 @@ ul {
   display: flex;
   flex-wrap: wrap;
   flex: 1;
+  align-items: center;
+  justify-content: center;
 }

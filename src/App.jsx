@@ -2,27 +2,14 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import Header from './components/header'
-import Counter from './components/counter';
 import Input from './components/input';
 import Card from './components/products/card';
 
 
 function App() {
-  const [counter, setCounter] = useState(0);
   const [task, setTask] = useState('');
   const [active, setActive] = useState(false);
   const [products, setProducts] = useState([]);
-
-  const isValidCounter = counter > 0;
-
-  const incrementCounter = () => {
-    setCounter((prevCounter) => prevCounter + 1);
-  };
-
-  const decrementCounter = () => {
-    if(!isValidCounter) return;
-    setCounter((prevCounter) => prevCounter -1);
-  };
 
   const onChange = (event) => {
     const value = event.target.value;
@@ -58,29 +45,30 @@ function App() {
   }, [])
 
 
-  console.log({ products });
   return (
     <div>
       <Header logo="Ds"/>
-      <Counter isValidCounter={isValidCounter}  counter={counter} onDecrementCounter={decrementCounter} onIncrementCounter={incrementCounter} />
-      <div className='inputContainer'>
-        <Input 
-          placeholder='Add a new task'
-          id='task'
-          required={true}
-          name='Task name'
-          onChange={onChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          active={active}
-        />
-        <div className='cardContainer'>
-        {
-          products.map((product) => (
-            <Card {...product} />
-          ))
-        }
+      <div className='contentContainer'>
+        <div className='inputContainer'>
+          <Input 
+            placeholder='find a product'
+            id='task'
+            required={true}
+            name='Search'
+            onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            active={active}
+          />
         </div>
+          <h2 className='headerTitleCard'>Products</h2>
+          <div className='cardContainer'>
+          {
+            products.map((product) => (
+              <Card {...product} />
+            ))
+          }
+          </div>
       </div>
     </div>
   )
