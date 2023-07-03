@@ -1,19 +1,21 @@
 /* eslint-disable react/jsx-key */
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './App.css'
 import Header from './components/header'
 import Input from './components/input';
 import Card from './components/products/card';
 import Details from './components/products/details';
-
+import { useFetch } from './hooks/useFetch';
+import { API_URLS } from '../src/constants/index'
 
 function App() {
   const [search, setSearch] = useState('');
   const [active, setActive] = useState(false);
-  const [products, setProducts] = useState([]);
   const [showDetails, setShowDetails] = useState(false);
   const [productDetail, setProductDetail] = useState(null);
   const [productFiltered, setProductFiltered] = useState([]);
+
+  const { data: products  } = useFetch(API_URLS.PRODUCTS.url, API_URLS.PRODUCTS.config);
 
   const filterBySearch = (query) => {
     let updateProductList = [...products];
@@ -45,25 +47,25 @@ function App() {
     setProductDetail(findProduct);
   }
 
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const response = await fetch('https://6499986179fbe9bcf83f91ca.mockapi.io/produtcs', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+  // useEffect(() => {
+  //   const getProduct = async () => {
+  //     try {
+  //       const response = await fetch('https://6499986179fbe9bcf83f91ca.mockapi.io/produtcs', {
+  //         method: 'GET',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       });
 
-        const data = await response.json();
+  //       const data = await response.json();
 
-        setProducts(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getProduct();
-  }, [])
+  //       setProducts(data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  //   getProduct();
+  // }, [])
 
 
   return (
