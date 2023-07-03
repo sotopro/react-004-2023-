@@ -7,6 +7,7 @@ import Card from './components/products/card';
 import Details from './components/products/details';
 import { useFetch } from './hooks/useFetch';
 import { API_URLS } from '../src/constants/index'
+import Loader from './components/loader';
 
 function App() {
   const [search, setSearch] = useState('');
@@ -15,7 +16,7 @@ function App() {
   const [productDetail, setProductDetail] = useState(null);
   const [productFiltered, setProductFiltered] = useState([]);
 
-  const { data: products  } = useFetch(API_URLS.PRODUCTS.url, API_URLS.PRODUCTS.config);
+  const { data: products, loading, error  } = useFetch(API_URLS.PRODUCTS.url, API_URLS.PRODUCTS.config);
 
   const filterBySearch = (query) => {
     let updateProductList = [...products];
@@ -47,27 +48,6 @@ function App() {
     setProductDetail(findProduct);
   }
 
-  // useEffect(() => {
-  //   const getProduct = async () => {
-  //     try {
-  //       const response = await fetch('https://6499986179fbe9bcf83f91ca.mockapi.io/produtcs', {
-  //         method: 'GET',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //       });
-
-  //       const data = await response.json();
-
-  //       setProducts(data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  //   getProduct();
-  // }, [])
-
-
   return (
     <div>
       <Header logo="Ds"/>
@@ -96,14 +76,17 @@ function App() {
           </div>
             <h2 className='headerTitleCard'>Products</h2>
             <div className='cardContainer'>
+            {loading && <Loader />}
+            {error && <h2>{error}</h2>}
+            { search.length > 0 && productFiltered.length === 0 && <h2>Product not found</h2>}
             {
               search.length > 0 ? (
                 productFiltered.map((product) => (
-                <Card {...product} onShowDetails={onShowDetails} />
+                  <Card key={product.id} {...product} onShowDetails={onShowDetails} />
                 ))
               ) : (
               products.map((product) => (
-                <Card {...product} onShowDetails={onShowDetails} />
+                <Card key={product.id} {...product} onShowDetails={onShowDetails} />
               ))
               )
             }

@@ -3,7 +3,7 @@ import './styles.css'
 
 const Card = ({ id, image, name, category, description, price, stock, onAddToCart, onShowDetails }) => {
     return (
-        <div key={id} className='card' onClick={() => onShowDetails(id)}>
+        <div className='card' onClick={() => onShowDetails(id)}>
             <img className='cardImage' src={image} alt={name} />
             <div className='cardContent'>
                 <h3 className='cardName'>{name}</h3>
