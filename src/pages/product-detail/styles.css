@@ -4,3 +4,23 @@
     align-items: center;
     width: 100%;
 }
+
+.headerDetailContainer {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem;
+}
+
+.headerDetailContainer .backButton {
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    padding: 0;
+    margin: 0;
+    transition: all 0.1s ease-in-out;
+}
+
+.headerDetailContainer .backButton:hover{
+    border-bottom: 1px solid #5156A4;
+    scale: 1.02;
+}

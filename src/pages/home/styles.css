@@ -20,4 +20,12 @@
     align-items: center;
     justify-content: center;
     gap: 0.2rem;
+    overflow: hidden;
+  }
+
+  .categoryContainer {
+    min-width: 200px;
+    height: fit-content;
+    background-color: #5156A4;
+    padding: 1rem;
   }
