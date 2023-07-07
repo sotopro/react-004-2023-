@@ -8,6 +8,8 @@
     gap: 0.5rem;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    cursor: pointer;
+    padding: 0 3rem;
 }
 
 .nextButton,
@@ -22,14 +24,18 @@
     align-items: center;
     background-color: #000000;
     border-radius: 0.5rem;
+    color: #FFFFFF;
+    font-size: 1.5rem;
 }
 
 .nextButton {
     right: 0;
 }
 
-.previousButton span,
-.nextButton span {
-    font-size: 1.5rem;
-    color: #FFFFFF;
+.nextButton:active,
+.previousButton:active,
+.nextButton:hover,
+.previousButton:hover {
+    background-color: #FFFFFF;
+    color: #000000;
 }
