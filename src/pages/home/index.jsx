@@ -80,11 +80,60 @@ function Home() {
         }
     }
 
-    console.log({ cart });
+    const onDecreaseCartItem = (id) => {
+        if(cart?.find((product) => product.id === id)?.quantity === 1) return;
+        if(cart?.length > 0 && cart?.find((product) => product.id === id)) {
+            setCart((currentCart) => {
+                return currentCart.map((product) => {
+                    if(product.id === id) {
+                        return { ...product, quantity: product.quantity - 1 }
+                    } else {
+                        return product
+                    }
+                })
+            });
+        }
+    }
 
+    const onRemoveCartItem = (id) => {
+        setCart((currentCart) => {
+            return currentCart.filter((product) => product.id !== id)
+        })
+    }
+
+    const sumTotalCart = cart.reduce((acc, product) => acc + (product.price * product.quantity), 0)
+
+    console.log(sumTotalCart)
     return (
         <div>
         <div className='contentContainer'>
+            <h2>Cart</h2>
+            <div className='cartContainer'>
+                {cart.length === 0 && <h3>Cart is empty</h3>}
+                {
+                    cart?.length > 0 && cart.map((product) => (
+                        <div key={product.id} className='cartItem'>
+                            <div className='cardImageContainer'>
+                                <img className='cardImage' src={product.image} alt={product.name} />
+                            </div>
+                            <div className='cartContentContainer'>
+                                <p className='cartProductName'>{product.name}</p>
+                                <p className='cartPrice'>USD {product.price}</p>
+                                <p className='cartQuantity'>qty: {product.quantity}</p>
+                                <p className='cartStock'>{product.stock} left</p>
+                                <div className='cartActions'>
+                                    <button onClick={() => onAddToCart(product.id)} className='cartButttonAdd'>+</button>
+                                    <button onClick={() => onDecreaseCartItem(product.id)} className='cartButttonDecrease'>-</button>
+                                    <button onClick={() => onRemoveCartItem(product.id)} className='cartButttonRemove'>Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+                {
+                    cart?.length > 0 && <p className='cartTotal'>Total: USD {sumTotalCart}</p>
+                }
+            </div>
             <div className='categoriesContainer'>
                 {loadingCategories && <Loader />}
                 {errorCategories && <h2>{errorCategories}</h2>}
