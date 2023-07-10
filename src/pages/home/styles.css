@@ -26,6 +26,18 @@
   .categoryContainer {
     min-width: 200px;
     height: fit-content;
-    background-color: #5156A4;
+    background-color: #CBBAED;
     padding: 1rem;
+    border: none;
+    transition: all 0.3s ease-in-out;
+    color: #000000;
+  }
+
+  .categoryContainer:hover {
+    background-color: #BAA6D2;
+    color: #FFFFFF;
+  }
+
+  .categoryName {
+    font-size: 1rem;
   }
