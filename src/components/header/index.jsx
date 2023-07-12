@@ -1,8 +1,17 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
-import React from "react";
+import { useContext } from "react";
 import './styles.css';
+import { CartContext } from "../../context/cart-context";
+import { useNavigate } from "react-router-dom";
 
-const Header = ({ logo, menuItem }) => {
+const Header = ({ logo }) => {
+    const { cart } = useContext(CartContext);
+    const navigate = useNavigate();
+
+    const goToCart = () => {
+        navigate('/cart');
+    }
     return (
         <header className="header">
             <a href="/" className="logo">{logo}</a>
@@ -16,6 +25,12 @@ const Header = ({ logo, menuItem }) => {
                     <li><a href="#">Products</a></li>
                     <li><a href="#">Categories</a></li>
                     <li><a href="#">Contact</a></li>
+                    <li onClick={goToCart} className="menu-cart-container">
+                        <img className="menu-cart-image" src="https://cdn-icons-png.flaticon.com/512/665/665199.png" alt="cart" />
+                        <div className="menu-cart-count-container">
+                            <span className="menu-cart-count">{cart.length}</span>
+                        </div>
+                    </li>
                 </ul>
             </nav>
         </header>
