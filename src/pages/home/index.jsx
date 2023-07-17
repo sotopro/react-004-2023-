@@ -1,10 +1,8 @@
 /* eslint-disable react/jsx-key */
 import { useEffect, useState, useContext } from 'react'
 import './styles.css'
-import Header from '../../components/header'
 import Input from '../../components/input';
 import Card from '../../components/products/card';
-import Details from '../../components/products/details';
 import Loader from '../../components/loader';
 import { useFetch } from '../../hooks/useFetch';
 import { API_URLS } from '../../constants/index'
@@ -72,11 +70,11 @@ function Home() {
     }
 
     return (
-        <div>
+        <>
         <div className='contentContainer'>
             <div className='categoriesContainer'>
-                {loadingCategories && <Loader />}
-                {errorCategories && <h2>{errorCategories}</h2>}
+                {loadingCategories ? <Loader /> : null}
+                {errorCategories ? <h2>{errorCategories}</h2> : null}
                 <Slider>
                     <button onClick={() => setIsFiltered(false)} type='button' className='categoryContainer'>
                         <p className='categoryName'>All</p>
@@ -92,7 +90,7 @@ function Home() {
             </div>
             <div className='inputContainer'>
             {
-            isFiltered && ( 
+            isFiltered ? ( 
                 <Input 
                     placeholder='find a product'
                     id='task'
@@ -103,13 +101,13 @@ function Home() {
                     onBlur={onBlur}
                     active={active}
                 />
-            )}   
+            ) : null}   
            
             </div>
             <h2 className='headerTitleCard'>Products</h2>
             <div className='cardContainer'>
-            {loadingProducts && <Loader />}
-            {errorProducts && <h2>{errorProducts}</h2>}
+            {loadingProducts ? <Loader /> : null}
+            {errorProducts ? <h2>{errorProducts}</h2> : null}
             {
                 isFiltered ? (
                 productFiltered.map((product) => (
@@ -122,11 +120,11 @@ function Home() {
                 )
             }
             {
-                isFiltered && productFiltered.length === 0 && <h2>Products not found</h2>
+                isFiltered && productFiltered.length === 0 ? <h2>Products not found</h2> : null
             }
             </div>
         </div>
-        </div>
+        </>
     )
 }
 
