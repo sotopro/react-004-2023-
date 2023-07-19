@@ -16,3 +16,23 @@
 .checkoutFormInputGroup {
     padding: 1rem 0; 
 }
+
+.butttonCheckout {
+    border: none;
+    background-color: #5156A4;
+    color: #ffffff;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 0.2rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.butttonCheckout:hover {
+    background-color: #3f428e;
+}
+
+.butttonCheckout:disabled {
+    background-color: #808A9F;
+    color: #ffffff;
+    cursor: not-allowed;
+}

@@ -15,26 +15,29 @@ const initialState = {
 }
 
 function Checkout() {
-    const [formState, inputHandler, clearInputs, inputFocus] = useForm(initialState)
+    const [formState, inputHandler, clearInputs, inputFocus, inputBlur] = useForm(initialState)
     const onChange = (event) => {
         const { name, value } = event.target
         inputHandler({ name, value })
     }
 
-    const onFocus = ({ name, active }) => {
-        inputFocus({ name, active })
+    const onFocus = ({ name }) => {
+        inputFocus({ name })
     }
 
-    const onBlur = () => {
-        // setActive(false)
+    const onBlur = ({ name }) => {
+        inputBlur({ name })
     }
 
-    console.log({formState})
+    const onSubmit = (event) => {
+        event.preventDefault()
+        console.log('formState', formState)
+    }
 
     return (
         <div className="checkoutContainer">
             <h1 className='checkoutTitle'>Checkout</h1>
-            <form className="checkoutForm">
+            <form onSubmit={onSubmit}  className="checkoutForm">
                 <div className="checkoutFormContainer">
                     <div className="checkoutFormInputGroup">
                         <Input 
@@ -44,9 +47,12 @@ function Checkout() {
                             required={true}
                             label='Name'
                             onChange={onChange}
-                            onFocus={() => onFocus({ name: 'name', active: true })}
-                            onBlur={onBlur}
+                            onFocus={() => onFocus({ name: 'name'})}
+                            onBlur={() => onBlur({ name: 'name'})}
                             active={formState.name.active}
+                            error={formState.name.error}
+                            hasError={formState.name.hasError}
+                            maxLength={40}
                         />
                     </div>
                     <div className="checkoutFormInputGroup">
@@ -57,9 +63,12 @@ function Checkout() {
                             required={true}
                             label='Apellido'
                             onChange={onChange}
-                            onFocus={onFocus}
-                            onBlur={onBlur}
+                            onFocus={() => onFocus({ name: 'surname' })}
+                            onBlur={() => onBlur({ name: 'surname'})}
                             active={formState.surname.active}
+                            error={formState.surname.error}
+                            hasError={formState.surname.hasError}
+                            maxLength={40}
                         />
                     </div>
                     <div className="checkoutFormInputGroup">
@@ -70,9 +79,12 @@ function Checkout() {
                             required={true}
                             label='Documento de identidad'
                             onChange={onChange}
-                            onFocus={onFocus}
-                            onBlur={onBlur}
+                            onFocus={() => onFocus({ name: 'document' })}
+                            onBlur={() => onBlur({ name: 'document'})}
                             active={formState.document.active}
+                            error={formState.document.error}
+                            hasError={formState.document.hasError}
+                            maxLength={15}
                         />
                     </div>
                     <div className="checkoutFormInputGroup">
@@ -83,9 +95,12 @@ function Checkout() {
                             required={true}
                             label='Email'
                             onChange={onChange}
-                            onFocus={onFocus}
-                            onBlur={onBlur}
+                            onFocus={() => onFocus({ name: 'email' })}
+                            onBlur={() => onBlur({ name: 'email'})}
                             active={formState.email.active}
+                            error={formState.email.error}
+                            hasError={formState.email.hasError}
+                            maxLength={40}
                         />
                     </div>
                     <div className="checkoutFormInputGroup">
@@ -96,9 +111,12 @@ function Checkout() {
                             required={true}
                             label='Telefono'
                             onChange={onChange}
-                            onFocus={onFocus}
-                            onBlur={onBlur}
+                            onFocus={() => onFocus({ name: 'phone' })}
+                            onBlur={() => onBlur({ name: 'phone'})}
                             active={formState.phone.active}
+                            error={formState.phone.error}
+                            hasError={formState.phone.hasError}
+                            maxLength={15}
                         />
                     </div>
                     <div className="checkoutFormInputGroup">
@@ -109,9 +127,12 @@ function Checkout() {
                             required={true}
                             label='Direccion'
                             onChange={onChange}
-                            onFocus={onFocus}
-                            onBlur={onBlur}
+                            onFocus={() => onFocus({ name: 'address' })}
+                            onBlur={() => onBlur({ name: 'address'})}
                             active={formState.address.active}
+                            error={formState.address.error}
+                            hasError={formState.address.hasError}
+                            maxLength={80}
                         />
                     </div>
                     <div className="checkoutFormInputGroup">
@@ -122,12 +143,16 @@ function Checkout() {
                             required={true}
                             label='Codigo postal'
                             onChange={onChange}
-                            onFocus={onFocus}
-                            onBlur={onBlur}
+                            onFocus={() => onFocus({ name: 'postalCode' })}
+                            onBlur={() => onBlur({ name: 'postalCode'})}
                             active={formState.postalCode.active}
+                            error={formState.postalCode.error}
+                            hasError={formState.postalCode.hasError}
+                            maxLength={10}
                         />
                     </div>
                 </div>
+                <button disabled={!formState.isFormValid} type='submit' className='butttonCheckout'>Checkout</button>
             </form>
         </div>
     )
