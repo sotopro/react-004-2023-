@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Input from '../../components/input'
 import './styles.css'
 import { useForm } from '../../hooks/useForm'
+import { CartContext } from '../../context/cart-context'
 
 const initialState = {
     name : { value: '', error: '', hasError: true, active: false, name: 'name' },
@@ -16,6 +17,7 @@ const initialState = {
 
 function Checkout() {
     const [formState, inputHandler, clearInputs, inputFocus, inputBlur] = useForm(initialState)
+    const {cart, total} = useContext(CartContext);
     const onChange = (event) => {
         const { name, value } = event.target
         inputHandler({ name, value })
@@ -27,6 +29,40 @@ function Checkout() {
 
     const onBlur = ({ name }) => {
         inputBlur({ name })
+    }
+
+    const onHandlerOrder = async () => {
+        const newOrder = {
+            buyer: {
+                name: formState.name.value,
+                surname: formState.surname.value,
+                document: formState.document.value,
+                email: formState.email.value,
+                phone: formState.phone.value,
+                address: formState.address.value,
+                postalCode: formState.postalCode.value,
+            },
+            createdAt: new Date(),
+            id: 1,
+            items: cart,
+            payment: {
+                currency: 'USD',
+                method: 'CASH',
+                type: 'CASH'
+            },
+            seller: {
+                id: 1,
+                name: 'Pedrito',
+                phone: '123456789',
+                email: 'pedrito@taskmanager.com'
+            },
+            shipping: {
+                deliverDate: new Date() + 7,
+                trackingNumber: '123456ff227aa89',
+                type: 'DELIVERY'
+            },
+            total: total
+        }
     }
 
     const onSubmit = (event) => {

@@ -10,6 +10,8 @@ function Cart() {
     const onHandlerCheckout = () => {
         navigate('/checkout')
     }
+
+    console.log({cart})
     return (
         <div>
             <div className='cartContainer'>
