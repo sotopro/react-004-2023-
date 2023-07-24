@@ -6,6 +6,7 @@ import ProductDetail from './pages/product-detail'
 import { CartProvider } from './context/cart-context'
 import Cart from './pages/cart'
 import Checkout from './pages/checkout'
+import SuccessOrder from './pages/success-order'
 function App() {
   return (
     <div>
@@ -16,6 +17,7 @@ function App() {
           <Route path='/products/:productId' element={<ProductDetail />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkout' element={<Checkout />} />
+          <Route path='/success-order' element={<SuccessOrder />} />
         </Routes>
       </CartProvider>
     </div>

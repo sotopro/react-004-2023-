@@ -1,10 +1,12 @@
-import { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import Input from '../../components/input'
 import './styles.css'
 import { useForm } from '../../hooks/useForm'
 import { CartContext } from '../../context/cart-context'
 import { firebaseServices } from '../../services/firebase'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useQuery } from '../../hooks/useQuery'
+
 
 const initialState = {
     name : { value: '', error: '', hasError: true, active: false, name: 'name' },
@@ -17,18 +19,32 @@ const initialState = {
     isFormValid: false,
 }
 
-function useQuery() {
-    const { search } = useLocation();
-  
-    return useMemo(() => new URLSearchParams(search), [search]);
-  }
-
 function Checkout() {
-    const [formState, inputHandler, clearInputs, inputFocus, inputBlur] = useForm(initialState)
     const {cart, total, setCart} = useContext(CartContext);
-    const [orderCreated, setOrderCreated] = useState(null)
+    const [formState, inputHandler, inputFocus, inputBlur, clearInputs] = useForm(initialState)
     const { state } = useLocation();
+    const navigate = useNavigate();
     let query = useQuery();
+
+    useEffect(() => {
+        const cartId = query.get("cartId") 
+        
+        if(query.get("cartId")) {
+            const getCart = async () => {
+                const cart = await firebaseServices.getCartById(cartId)
+                return cart
+            }
+            getCart()
+                .then((cart) => {
+                    setCart(cart.items)
+                })
+                .catch((error) => {
+                    console.log({error})
+                })
+        }
+
+    }, [query])
+
 
     const onChange = (event) => {
         const { name, value } = event.target
@@ -76,7 +92,7 @@ function Checkout() {
         }
 
         const orderId = await firebaseServices.createOrder(newOrder)
-        await firebaseServices.updateCart(state?.cartId)
+        await firebaseServices.updateCart(state.cartId)
 
         return {
             orderId,
@@ -86,27 +102,9 @@ function Checkout() {
     const onSubmit = async (event) => {
         event.preventDefault()
         const { orderId } = await onHandlerOrder();
-        setOrderCreated(orderId)
+        clearInputs({ formState })
+        navigate('/success-order', { state: { orderId: orderId.id } })
     }
-
-    useEffect(() => {
-        const cartId = query.get("cartId") 
-        
-        if(query.get("cartId")) {
-            const getCart = async () => {
-                const cart = await firebaseServices.getCartById(cartId)
-                return cart
-            }
-            getCart()
-                .then((cart) => {
-                    setCart(cart.items)
-                })
-                .catch((error) => {
-                    console.log({error})
-                })
-        }
-
-    }, [query, setCart])
 
     return (
         <div className="checkoutContainer">
@@ -121,8 +119,8 @@ function Checkout() {
                             required={true}
                             label='Name'
                             onChange={onChange}
-                            onFocus={() => onFocus({ name: 'name'})}
-                            onBlur={() => onBlur({ name: 'name'})}
+                            onFocus={(e) => onFocus({ e, name: 'name'})}
+                            onBlur={(e) => onBlur({ e, name: 'name'})}
                             active={formState.name.active}
                             error={formState.name.error}
                             hasError={formState.name.hasError}
