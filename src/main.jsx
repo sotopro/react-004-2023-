@@ -11,6 +11,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
+  apiKey: "AIzaSyD6b7E1osWPYqa9hi0XHmnyiz0bo1FoQ68",
+  authDomain: "taskmanager-34c40.firebaseapp.com",
+  projectId: "taskmanager-34c40",
+  storageBucket: "taskmanager-34c40.appspot.com",
+  messagingSenderId: "598168919030",
+  appId: "1:598168919030:web:e51e47aa5b1ab74ff985d7"
 };
 
 // Initialize Firebase

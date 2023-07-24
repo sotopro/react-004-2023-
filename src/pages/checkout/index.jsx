@@ -1,8 +1,10 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import Input from '../../components/input'
 import './styles.css'
 import { useForm } from '../../hooks/useForm'
 import { CartContext } from '../../context/cart-context'
+import { firebaseServices } from '../../services/firebase'
+import { useLocation } from 'react-router-dom'
 
 const initialState = {
     name : { value: '', error: '', hasError: true, active: false, name: 'name' },
@@ -15,9 +17,19 @@ const initialState = {
     isFormValid: false,
 }
 
+function useQuery() {
+    const { search } = useLocation();
+  
+    return useMemo(() => new URLSearchParams(search), [search]);
+  }
+
 function Checkout() {
     const [formState, inputHandler, clearInputs, inputFocus, inputBlur] = useForm(initialState)
-    const {cart, total} = useContext(CartContext);
+    const {cart, total, setCart} = useContext(CartContext);
+    const [orderCreated, setOrderCreated] = useState(null)
+    const { state } = useLocation();
+    let query = useQuery();
+
     const onChange = (event) => {
         const { name, value } = event.target
         inputHandler({ name, value })
@@ -43,7 +55,6 @@ function Checkout() {
                 postalCode: formState.postalCode.value,
             },
             createdAt: new Date(),
-            id: 1,
             items: cart,
             payment: {
                 currency: 'USD',
@@ -63,12 +74,39 @@ function Checkout() {
             },
             total: total
         }
+
+        const orderId = await firebaseServices.createOrder(newOrder)
+        await firebaseServices.updateCart(state?.cartId)
+
+        return {
+            orderId,
+        }
     }
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault()
-        console.log('formState', formState)
+        const { orderId } = await onHandlerOrder();
+        setOrderCreated(orderId)
     }
+
+    useEffect(() => {
+        const cartId = query.get("cartId") 
+        
+        if(query.get("cartId")) {
+            const getCart = async () => {
+                const cart = await firebaseServices.getCartById(cartId)
+                return cart
+            }
+            getCart()
+                .then((cart) => {
+                    setCart(cart.items)
+                })
+                .catch((error) => {
+                    console.log({error})
+                })
+        }
+
+    }, [query, setCart])
 
     return (
         <div className="checkoutContainer">
