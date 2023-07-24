@@ -81,7 +81,6 @@ export const useForm = (initialState) => {
     
 
     const clearInputs = ({ formState, dispatch = dispatchFormState }) => {
-        console.log({formState, dispatch})
         dispatch({
             type: INPUT_ACTIONS.CLEAR_INPUTS,
             data: formState,
