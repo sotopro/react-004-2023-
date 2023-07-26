@@ -21,10 +21,6 @@ const Header = ({ logo }) => {
             </label>
             <nav className="nav">
                 <ul className="menu">
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Products</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Contact</a></li>
                     <li onClick={goToCart} className="menu-cart-container">
                         <img className="menu-cart-image" src="https://cdn-icons-png.flaticon.com/512/665/665199.png" alt="cart" />
                         <div className="menu-cart-count-container">

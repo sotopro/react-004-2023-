@@ -11,7 +11,7 @@
     display: inline-block;
     color: #212121;
     font-size: 2rem;
-    padding: 0.7rem;
+    padding: 0.7rem 1.6rem;
     font-weight: bold;
 }
 .hamb {
@@ -53,6 +53,7 @@
     overflow: hidden;
     max-height: 0;
     transition: max-height .5s ease-out;
+    display: flex;
 }
 
 .menu {

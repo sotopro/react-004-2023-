@@ -5,11 +5,21 @@
     width: 100%;
 }
 
+.productDetailContainer {
+    margin: 0.5rem 2rem;
+}
+
 .headerDetailContainer {
     display: flex;
     flex-direction: row;
     padding: 0.5rem;
 }
+
+.headerTitleCard {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 1rem;
+  }
 
 .headerDetailContainer .backButton {
     border: none;

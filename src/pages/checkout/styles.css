@@ -5,13 +5,30 @@
 }
 
 .checkoutTitle {}
+.checkoutFormContainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+.checkoutDetailContainer {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    gap: 2rem;
+}
+.checkoutCartContainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 1.6rem;
+}
 .checkoutForm {
     display: flex;
     flex-direction: column;
-    max-width: 50vw;
 }
-.checkoutFormContainer {
-    padding: 1rem 0;
+.cartContainer {
+    display: flex;
+    flex-direction: column;
 }
 .checkoutFormInputGroup {
     padding: 1rem 0; 
